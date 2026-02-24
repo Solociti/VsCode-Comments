@@ -147,10 +147,6 @@
     ],
     "commands": [
       {
-        "command": "struxt-code-comments.helloWorld",
-        "title": "Hello World"
-      },
-      {
         "command": "struxt-code-comments.addComment",
         "title": "Add Comment"
       },
@@ -189,37 +185,44 @@
       "comments/commentThread/title": [
         {
           "command": "struxt-code-comments.previousCommentThread",
-          "group": "navigation@1"
+          "group": "navigation@1",
+          "when": "commentController == struxt-code-comments"
         },
         {
           "command": "struxt-code-comments.nextCommentThread",
-          "group": "navigation@2"
+          "group": "navigation@2",
+          "when": "commentController == struxt-code-comments"
         },
         {
           "command": "struxt-code-comments.deleteCommentThread",
-          "group": "navigation@3"
+          "group": "navigation@3",
+          "when": "commentController == struxt-code-comments"
         }
       ],
       "comments/comment/title": [
         {
           "command": "struxt-code-comments.deleteComment",
-          "group": "navigation"
+          "group": "navigation",
+          "when": "commentController == struxt-code-comments"
         }
       ],
       "comments/comment/context": [
         {
           "command": "struxt-code-comments.deleteComment",
-          "group": "inline"
+          "group": "inline",
+          "when": "commentController == struxt-code-comments"
         },
         {
           "command": "struxt-code-comments.deleteComment",
-          "group": "navigation"
+          "group": "navigation",
+          "when": "commentController == struxt-code-comments"
         }
       ],
       "comments/commentThread/context": [
         {
           "command": "struxt-code-comments.replyComment",
-          "group": "inline"
+          "group": "inline",
+          "when": "commentController == struxt-code-comments"
         }
       ]
     }
