@@ -2,7 +2,7 @@
   "name": "struxt-code-comments",
   "displayName": "VsCode Comments",
   "description": "Manage comments in the internal vscode comments controller",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/Solociti/VsCode-Comments.git"

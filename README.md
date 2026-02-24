@@ -117,6 +117,14 @@ Reload VS Code when prompted. The extension will activate automatically on start
 
 ## Release Notes
 
+### 0.0.2 - 2026-02-24
+
+#### Added
+- Release automation agent to increment version, generate release notes, and prompt for commit.
+
+#### Fixed
+- Control buttons no longer appear on comment threads created by other extensions.
+
 ### 0.0.1
 
 Initial release — inline comment threads, LM tool registration, thread navigation, and workspace-state persistence.
