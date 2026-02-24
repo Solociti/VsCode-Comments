@@ -440,6 +440,16 @@ export function activate(context: vscode.ExtensionContext) {
     },
   );
   context.subscriptions.push(replyCommentCommand);
+
+  const reportIssueCommand = vscode.commands.registerCommand(
+    "inline-annotate.reportIssue",
+    () => {
+      vscode.commands.executeCommand("vscode.openIssueReporter", {
+        extensionId: "solociti.inline-annotate",
+      });
+    },
+  );
+  context.subscriptions.push(reportIssueCommand);
 }
 
 // This method is called when your extension is deactivated

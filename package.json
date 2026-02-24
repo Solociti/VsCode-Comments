@@ -3,6 +3,7 @@
   "displayName": "Inline Annotate",
   "description": "Add and manage inline code annotation threads in VS Code, with AI agent support via LM tools.",
   "version": "0.0.2",
+  "publisher": "solociti",
   "repository": {
     "type": "git",
     "url": "https://github.com/Solociti/VsCode-Comments.git"
@@ -14,7 +15,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onStartupFinished"
+    "onStartupFinished",
+    "onIssueReporterOpened"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -173,6 +175,10 @@
       {
         "command": "inline-annotate.replyComment",
         "title": "Reply"
+      },
+      {
+        "command": "inline-annotate.reportIssue",
+        "title": "Report Issue"
       }
     ],
     "menus": {
@@ -223,6 +229,11 @@
           "command": "inline-annotate.replyComment",
           "group": "inline",
           "when": "commentController == inline-annotate"
+        }
+      ],
+      "issue/reporter": [
+        {
+          "command": "inline-annotate.reportIssue"
         }
       ]
     }
