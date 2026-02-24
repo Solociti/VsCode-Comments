@@ -21,9 +21,10 @@
           "comments",
           "code-review"
         ],
+        "canBeReferencedInPrompt": true,
         "toolReferenceName": "addComment",
         "displayName": "Add Code Comment",
-        "modelDescription": "Add a comment to a specific line in a file using the internal comment controller.",
+        "modelDescription": "Add a comment to a specific line in a file using the internal comment controller. Always provide a username identifying the agent or user leaving the comment (e.g. 'Copilot', 'Agent', or the user's name).",
         "inputSchema": {
           "type": "object",
           "properties": {
@@ -41,7 +42,7 @@
             },
             "username": {
               "type": "string",
-              "description": "Optional display name for the comment author (e.g. 'Agent', 'Bot', 'Copilot'). Defaults to 'User' if not provided."
+              "description": "Display name for the comment author. Should almost always be set — use the agent or model name (e.g. 'Copilot') or the user's name. Defaults to 'User' if omitted."
             }
           },
           "required": [
@@ -57,9 +58,10 @@
           "comments",
           "code-review"
         ],
+        "canBeReferencedInPrompt": true,
         "toolReferenceName": "addReply",
         "displayName": "Add Reply to Code Comment",
-        "modelDescription": "Add a reply to an existing comment thread at a specific line in a file.",
+        "modelDescription": "Add a reply to an existing comment thread at a specific line in a file. Always provide a username identifying the agent or user leaving the reply (e.g. 'Copilot', 'Agent', or the user's name).",
         "inputSchema": {
           "type": "object",
           "properties": {
@@ -77,7 +79,7 @@
             },
             "username": {
               "type": "string",
-              "description": "Optional display name for the reply author (e.g. 'Agent', 'Bot', 'Copilot'). Defaults to 'User' if not provided."
+              "description": "Display name for the reply author. Should almost always be set — use the agent or model name (e.g. 'Copilot') or the user's name. Defaults to 'User' if omitted."
             }
           },
           "required": [
@@ -93,6 +95,7 @@
           "comments",
           "code-review"
         ],
+        "canBeReferencedInPrompt": true,
         "toolReferenceName": "getComments",
         "displayName": "Get Code Comments",
         "modelDescription": "Get all comments in a specific file.",
@@ -115,6 +118,7 @@
           "comments",
           "code-review"
         ],
+        "canBeReferencedInPrompt": true,
         "toolReferenceName": "deleteComment",
         "displayName": "Delete Code Comment",
         "modelDescription": "Delete a comment thread at a specific line in a file.",

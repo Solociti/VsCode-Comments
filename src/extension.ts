@@ -54,7 +54,10 @@ export function activate(context: vscode.ExtensionContext) {
       uri: t.uri.toString(),
       line: t.range ? t.range.start.line : 0,
       comments: t.comments.map((c) => ({
-        body: typeof c.body === "string" ? c.body : (c.body as vscode.MarkdownString).value,
+        body:
+          typeof c.body === "string"
+            ? c.body
+            : (c.body as vscode.MarkdownString).value,
         author: c.author.name,
       })),
     }));
@@ -63,7 +66,10 @@ export function activate(context: vscode.ExtensionContext) {
   }
 
   // Restore persisted threads
-  const savedThreads = context.workspaceState.get<PersistedThread[]>(STORAGE_KEY, []);
+  const savedThreads = context.workspaceState.get<PersistedThread[]>(
+    STORAGE_KEY,
+    [],
+  );
   for (const saved of savedThreads) {
     const fileUri = vscode.Uri.parse(saved.uri);
     const range = new vscode.Range(saved.line, 0, saved.line, 0);
@@ -120,7 +126,11 @@ export function activate(context: vscode.ExtensionContext) {
         ]);
       },
       prepareInvocation(options, token) {
-        const input = options.input as { filePath: string; line: number; username?: string };
+        const input = options.input as {
+          filePath: string;
+          line: number;
+          username?: string;
+        };
         return {
           invocationMessage: `Adding comment to ${input.filePath} at line ${input.line}`,
         };
@@ -130,57 +140,58 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(addCommentTool);
 
   // Tool to add a reply to an existing comment thread
-  const addReplyTool = vscode.lm.registerTool(
-    "struxt-code-comments_addReply",
-    {
-      async invoke(options, token) {
-        const { filePath, line, body, username } = options.input as {
-          filePath: string;
-          line: number;
-          body: string;
-          username?: string;
-        };
-        const fileUri = vscode.Uri.file(filePath);
+  const addReplyTool = vscode.lm.registerTool("struxt-code-comments_addReply", {
+    async invoke(options, token) {
+      const { filePath, line, body, username } = options.input as {
+        filePath: string;
+        line: number;
+        body: string;
+        username?: string;
+      };
+      const fileUri = vscode.Uri.file(filePath);
 
-        const thread = threads.find(
-          (t) =>
-            t.uri.toString() === fileUri.toString() &&
-            t.range &&
-            t.range.start.line === line - 1,
-        );
+      const thread = threads.find(
+        (t) =>
+          t.uri.toString() === fileUri.toString() &&
+          t.range &&
+          t.range.start.line === line - 1,
+      );
 
-        if (!thread) {
-          return new vscode.LanguageModelToolResult([
-            new vscode.LanguageModelTextPart(
-              `No comment thread found at ${filePath} line ${line}`,
-            ),
-          ]);
-        }
-
-        const comment = new NoteComment(
-          new vscode.MarkdownString(body),
-          vscode.CommentMode.Preview,
-          { name: username ?? "User" },
-          thread,
-        );
-
-        thread.comments = [...thread.comments, comment];
-        persistThreads();
-
+      if (!thread) {
         return new vscode.LanguageModelToolResult([
           new vscode.LanguageModelTextPart(
-            `Reply added to thread at ${filePath} line ${line}`,
+            `No comment thread found at ${filePath} line ${line}`,
           ),
         ]);
-      },
-      prepareInvocation(options, token) {
-        const input = options.input as { filePath: string; line: number; username?: string };
-        return {
-          invocationMessage: `Adding reply to thread at ${input.filePath} line ${input.line}`,
-        };
-      },
+      }
+
+      const comment = new NoteComment(
+        new vscode.MarkdownString(body),
+        vscode.CommentMode.Preview,
+        { name: username ?? "User" },
+        thread,
+      );
+
+      thread.comments = [...thread.comments, comment];
+      persistThreads();
+
+      return new vscode.LanguageModelToolResult([
+        new vscode.LanguageModelTextPart(
+          `Reply added to thread at ${filePath} line ${line}`,
+        ),
+      ]);
     },
-  );
+    prepareInvocation(options, token) {
+      const input = options.input as {
+        filePath: string;
+        line: number;
+        username?: string;
+      };
+      return {
+        invocationMessage: `Adding reply to thread at ${input.filePath} line ${input.line}`,
+      };
+    },
+  });
   context.subscriptions.push(addReplyTool);
 
   // Tool to get comments
@@ -303,7 +314,9 @@ export function activate(context: vscode.ExtensionContext) {
       }
 
       if (!uri || line === undefined) {
-        vscode.window.showErrorMessage("Could not determine file or line number for comment.");
+        vscode.window.showErrorMessage(
+          "Could not determine file or line number for comment.",
+        );
         return;
       }
 
@@ -323,7 +336,7 @@ export function activate(context: vscode.ExtensionContext) {
       const comment = new NoteComment(
         new vscode.MarkdownString(body),
         vscode.CommentMode.Preview,
-        { name: (args && args.username) ? args.username : "User" },
+        { name: args && args.username ? args.username : "User" },
         thread,
       );
 
@@ -356,7 +369,9 @@ export function activate(context: vscode.ExtensionContext) {
         return;
       }
 
-      thread.comments = thread.comments.filter((c) => (c as NoteComment).id !== comment.id);
+      thread.comments = thread.comments.filter(
+        (c) => (c as NoteComment).id !== comment.id,
+      );
 
       if (thread.comments.length === 0) {
         const index = threads.indexOf(thread);
@@ -373,15 +388,20 @@ export function activate(context: vscode.ExtensionContext) {
   function sortedThreads(): vscode.CommentThread[] {
     return [...threads].sort((a, b) => {
       const uriCmp = a.uri.toString().localeCompare(b.uri.toString());
-      if (uriCmp !== 0) { return uriCmp; }
+      if (uriCmp !== 0) {
+        return uriCmp;
+      }
       return (a.range?.start.line ?? 0) - (b.range?.start.line ?? 0);
     });
   }
 
-  function navigateToThread(from: vscode.CommentThread, target: vscode.CommentThread) {
+  function navigateToThread(
+    from: vscode.CommentThread,
+    target: vscode.CommentThread,
+  ) {
     from.collapsibleState = vscode.CommentThreadCollapsibleState.Collapsed;
     target.collapsibleState = vscode.CommentThreadCollapsibleState.Expanded;
-    vscode.window.showTextDocument(target.uri).then(editor => {
+    vscode.window.showTextDocument(target.uri).then((editor) => {
       editor.revealRange(target.range!, vscode.TextEditorRevealType.InCenter);
     });
   }
@@ -390,11 +410,13 @@ export function activate(context: vscode.ExtensionContext) {
     "struxt-code-comments.nextCommentThread",
     (thread: vscode.CommentThread) => {
       const sorted = sortedThreads();
-      if (sorted.length === 0) { return; }
+      if (sorted.length === 0) {
+        return;
+      }
       const currentIndex = sorted.indexOf(thread);
       const nextIndex = (currentIndex + 1) % sorted.length;
       navigateToThread(thread, sorted[nextIndex]);
-    }
+    },
   );
   context.subscriptions.push(nextCommentThreadCommand);
 
@@ -402,11 +424,13 @@ export function activate(context: vscode.ExtensionContext) {
     "struxt-code-comments.previousCommentThread",
     (thread: vscode.CommentThread) => {
       const sorted = sortedThreads();
-      if (sorted.length === 0) { return; }
+      if (sorted.length === 0) {
+        return;
+      }
       const currentIndex = sorted.indexOf(thread);
       const prevIndex = (currentIndex - 1 + sorted.length) % sorted.length;
       navigateToThread(thread, sorted[prevIndex]);
-    }
+    },
   );
   context.subscriptions.push(previousCommentThreadCommand);
 
