@@ -4,8 +4,8 @@ import * as vscode from "vscode";
 
 let commentId = 1;
 
-const STORAGE_KEY = "struxt-code-comments.threads";
-const COMMENT_ID_KEY = "struxt-code-comments.commentId";
+const STORAGE_KEY = "inline-annotate.threads";
+const COMMENT_ID_KEY = "inline-annotate.commentId";
 
 interface PersistedComment {
   body: string;
@@ -38,8 +38,8 @@ class NoteComment implements vscode.Comment {
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
   const commentController = vscode.comments.createCommentController(
-    "struxt-code-comments",
-    "Code Comments",
+    "inline-annotate",
+    "Inline Annotate",
   );
   context.subscriptions.push(commentController);
 
@@ -89,7 +89,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Tool to add a comment
   const addCommentTool = vscode.lm.registerTool(
-    "struxt-code-comments_addComment",
+    "inline-annotate_addComment",
     {
       async invoke(options, token) {
         const { filePath, line, body, username } = options.input as {
@@ -140,7 +140,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(addCommentTool);
 
   // Tool to add a reply to an existing comment thread
-  const addReplyTool = vscode.lm.registerTool("struxt-code-comments_addReply", {
+  const addReplyTool = vscode.lm.registerTool("inline-annotate_addReply", {
     async invoke(options, token) {
       const { filePath, line, body, username } = options.input as {
         filePath: string;
@@ -196,7 +196,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Tool to get comments
   const getCommentsTool = vscode.lm.registerTool(
-    "struxt-code-comments_getComments",
+    "inline-annotate_getComments",
     {
       async invoke(options, token) {
         const { filePath } = options.input as { filePath: string };
@@ -238,7 +238,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Tool to delete comments
   const deleteCommentTool = vscode.lm.registerTool(
-    "struxt-code-comments_deleteComment",
+    "inline-annotate_deleteComment",
     {
       async invoke(options, token) {
         const { filePath, line } = options.input as {
@@ -283,7 +283,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(deleteCommentTool);
 
   const addCommentCommand = vscode.commands.registerCommand(
-    "struxt-code-comments.addComment",
+    "inline-annotate.addComment",
     async (args?: any) => {
       let uri: vscode.Uri | undefined;
       let line: number | undefined;
@@ -335,7 +335,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(addCommentCommand);
 
   const deleteCommentThreadCommand = vscode.commands.registerCommand(
-    "struxt-code-comments.deleteCommentThread",
+    "inline-annotate.deleteCommentThread",
     (thread: vscode.CommentThread) => {
       const index = threads.indexOf(thread);
       if (index > -1) {
@@ -348,7 +348,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(deleteCommentThreadCommand);
 
   const deleteCommentCommand = vscode.commands.registerCommand(
-    "struxt-code-comments.deleteComment",
+    "inline-annotate.deleteComment",
     (comment: NoteComment) => {
       const thread = comment.parent;
       if (!thread) {
@@ -393,7 +393,7 @@ export function activate(context: vscode.ExtensionContext) {
   }
 
   const nextCommentThreadCommand = vscode.commands.registerCommand(
-    "struxt-code-comments.nextCommentThread",
+    "inline-annotate.nextCommentThread",
     (thread: vscode.CommentThread) => {
       const sorted = sortedThreads();
       if (sorted.length === 0) {
@@ -407,7 +407,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(nextCommentThreadCommand);
 
   const previousCommentThreadCommand = vscode.commands.registerCommand(
-    "struxt-code-comments.previousCommentThread",
+    "inline-annotate.previousCommentThread",
     (thread: vscode.CommentThread) => {
       const sorted = sortedThreads();
       if (sorted.length === 0) {
@@ -421,7 +421,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(previousCommentThreadCommand);
 
   const replyCommentCommand = vscode.commands.registerCommand(
-    "struxt-code-comments.replyComment",
+    "inline-annotate.replyComment",
     (reply: vscode.CommentReply) => {
       const thread = reply.thread;
       const text = reply.text;

@@ -1,7 +1,7 @@
 {
-  "name": "struxt-code-comments",
-  "displayName": "VsCode Comments",
-  "description": "Manage comments in the internal vscode comments controller",
+  "name": "inline-annotate",
+  "displayName": "Inline Annotate",
+  "description": "Add and manage inline code annotation threads in VS Code, with AI agent support via LM tools.",
   "version": "0.0.2",
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
   "contributes": {
     "languageModelTools": [
       {
-        "name": "struxt-code-comments_addComment",
+        "name": "inline-annotate_addComment",
         "tags": [
           "comments",
           "code-review"
@@ -57,7 +57,7 @@
         }
       },
       {
-        "name": "struxt-code-comments_addReply",
+        "name": "inline-annotate_addReply",
         "tags": [
           "comments",
           "code-review"
@@ -94,7 +94,7 @@
         }
       },
       {
-        "name": "struxt-code-comments_getComments",
+        "name": "inline-annotate_getComments",
         "tags": [
           "comments",
           "code-review"
@@ -117,7 +117,7 @@
         }
       },
       {
-        "name": "struxt-code-comments_deleteComment",
+        "name": "inline-annotate_deleteComment",
         "tags": [
           "comments",
           "code-review"
@@ -147,82 +147,82 @@
     ],
     "commands": [
       {
-        "command": "struxt-code-comments.addComment",
+        "command": "inline-annotate.addComment",
         "title": "Add Comment"
       },
       {
-        "command": "struxt-code-comments.deleteCommentThread",
+        "command": "inline-annotate.deleteCommentThread",
         "title": "Delete Comment",
         "icon": "$(trash)"
       },
       {
-        "command": "struxt-code-comments.deleteComment",
+        "command": "inline-annotate.deleteComment",
         "title": "Delete Comment",
         "icon": "$(trash)"
       },
       {
-        "command": "struxt-code-comments.nextCommentThread",
+        "command": "inline-annotate.nextCommentThread",
         "title": "Next Comment",
         "icon": "$(arrow-down)"
       },
       {
-        "command": "struxt-code-comments.previousCommentThread",
+        "command": "inline-annotate.previousCommentThread",
         "title": "Previous Comment",
         "icon": "$(arrow-up)"
       },
       {
-        "command": "struxt-code-comments.replyComment",
+        "command": "inline-annotate.replyComment",
         "title": "Reply"
       }
     ],
     "menus": {
       "editor/lineNumber/context": [
         {
-          "command": "struxt-code-comments.addComment",
+          "command": "inline-annotate.addComment",
           "group": "navigation"
         }
       ],
       "comments/commentThread/title": [
         {
-          "command": "struxt-code-comments.previousCommentThread",
+          "command": "inline-annotate.previousCommentThread",
           "group": "navigation@1",
-          "when": "commentController == struxt-code-comments"
+          "when": "commentController == inline-annotate"
         },
         {
-          "command": "struxt-code-comments.nextCommentThread",
+          "command": "inline-annotate.nextCommentThread",
           "group": "navigation@2",
-          "when": "commentController == struxt-code-comments"
+          "when": "commentController == inline-annotate"
         },
         {
-          "command": "struxt-code-comments.deleteCommentThread",
+          "command": "inline-annotate.deleteCommentThread",
           "group": "navigation@3",
-          "when": "commentController == struxt-code-comments"
+          "when": "commentController == inline-annotate"
         }
       ],
       "comments/comment/title": [
         {
-          "command": "struxt-code-comments.deleteComment",
+          "command": "inline-annotate.deleteComment",
           "group": "navigation",
-          "when": "commentController == struxt-code-comments"
+          "when": "commentController == inline-annotate"
         }
       ],
       "comments/comment/context": [
         {
-          "command": "struxt-code-comments.deleteComment",
+          "command": "inline-annotate.deleteComment",
           "group": "inline",
-          "when": "commentController == struxt-code-comments"
+          "when": "commentController == inline-annotate"
         },
         {
-          "command": "struxt-code-comments.deleteComment",
+          "command": "inline-annotate.deleteComment",
           "group": "navigation",
-          "when": "commentController == struxt-code-comments"
+          "when": "commentController == inline-annotate"
         }
       ],
       "comments/commentThread/context": [
         {
-          "command": "struxt-code-comments.replyComment",
+          "command": "inline-annotate.replyComment",
           "group": "inline",
-          "when": "commentController == struxt-code-comments"
+          "when": "commentController == inline-annotate"
         }
       ]
     }

@@ -1,6 +1,6 @@
-# VsCode Comments
+# Inline Annotate
 
-**VsCode Comments** is a VS Code extension that lets you add, reply to, navigate, and manage inline code comment threads — both manually and programmatically via Language Model (LM) tools.
+**Inline Annotate** is a VS Code extension that lets you add, reply to, navigate, and manage inline code annotation threads — both manually and programmatically via Language Model (LM) tools.
 
 Comments are attached to specific lines in files, displayed using VS Code's native Comments UI, and persisted across sessions in workspace state.
 
@@ -24,10 +24,10 @@ This extension registers the following tools with the VS Code LM API, making the
 
 | Tool | Reference Name | Description |
 |------|----------------|-------------|
-| `struxt-code-comments_addComment` | `#addComment` | Add a new comment thread to a specific line in a file |
-| `struxt-code-comments_addReply` | `#addReply` | Reply to an existing comment thread at a given line |
-| `struxt-code-comments_getComments` | `#getComments` | Retrieve all comment threads for a given file |
-| `struxt-code-comments_deleteComment` | `#deleteComment` | Delete the comment thread at a specific line |
+| `inline-annotate_addComment` | `#addComment` | Add a new comment thread to a specific line in a file |
+| `inline-annotate_addReply` | `#addReply` | Reply to an existing comment thread at a given line |
+| `inline-annotate_getComments` | `#getComments` | Retrieve all comment threads for a given file |
+| `inline-annotate_deleteComment` | `#deleteComment` | Delete the comment thread at a specific line |
 
 All tools accept a `filePath` (absolute path) and `line` (1-based line number). `addComment` and `addReply` also accept a `body` (Markdown string) and an optional `username` to identify the comment author.
 
@@ -94,14 +94,14 @@ npm install
 vsce package
 ```
 
-This produces a `.vsix` file in the project root (e.g. `struxt-code-comments-0.0.1.vsix`).
+This produces a `.vsix` file in the project root (e.g. `inline-annotate-0.0.1.vsix`).
 
 ### 3. Install the `.vsix` into VS Code
 
 **Via the command line:**
 
 ```bash
-code --install-extension struxt-code-comments-0.0.1.vsix
+code --install-extension inline-annotate-0.0.1.vsix
 ```
 
 **Via the Extensions UI:**
