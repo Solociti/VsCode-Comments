@@ -72,6 +72,49 @@ This extension is designed with LLM-driven workflows in mind. Here are some ways
 
 ---
 
+## Local Installation
+
+### Prerequisites
+
+Install the VS Code Extension CLI (`vsce`) if you haven't already:
+
+```bash
+npm install -g @vscode/vsce
+```
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Package the extension
+
+```bash
+vsce package
+```
+
+This produces a `.vsix` file in the project root (e.g. `struxt-code-comments-0.0.1.vsix`).
+
+### 3. Install the `.vsix` into VS Code
+
+**Via the command line:**
+
+```bash
+code --install-extension struxt-code-comments-0.0.1.vsix
+```
+
+**Via the Extensions UI:**
+
+1. Open the Extensions view (`Ctrl+Shift+X`)
+2. Click the `...` menu at the top right
+3. Select **Install from VSIX...**
+4. Choose the generated `.vsix` file
+
+Reload VS Code when prompted. The extension will activate automatically on startup.
+
+---
+
 ## Release Notes
 
 ### 0.0.1
