@@ -1,6 +1,6 @@
 {
   "name": "struxt-code-comments",
-  "displayName": "Code Comments",
+  "displayName": "VsCode Comments",
   "description": "Manage comments in the internal vscode comments controller",
   "version": "0.0.1",
   "engines": {
