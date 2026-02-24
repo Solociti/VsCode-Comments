@@ -2,7 +2,7 @@
   "name": "inline-annotate",
   "displayName": "Inline Annotate",
   "description": "Add and manage inline code annotation threads in VS Code, with AI agent support via LM tools.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "solociti",
   "repository": {
     "type": "git",

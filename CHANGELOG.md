@@ -4,6 +4,20 @@ All notable changes to the "inline-annotate" extension will be documented in thi
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.0.3] - 2026-02-24
+
+### Added
+
+- Report Issue command with updated activation events.
+
+### Changed
+
+- Renamed extension and all related identifiers to `inline-annotate`.
+
+### Removed
+
+- Removed the quickstart document.
+
 ## [0.0.2] - 2026-02-24
 
 ### Added
