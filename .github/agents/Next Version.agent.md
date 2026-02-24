@@ -35,8 +35,9 @@ You are a release engineer. The user will supply the next version number as an a
    - Add or update a `## Release Notes` section near the bottom of `README.md` with the same content. If the section already exists, prepend the new release above the previous ones.
 
 5. **Review release notes** — before committing, display the full release notes that were written and use the **ask_questions** tool to ask the user:
-   - _"Would you like to modify the release notes before committing?"_ (Yes / No)
-   - If **Yes**, ask the user to provide their updated text, apply the edits to both `CHANGELOG.md` and the `## Release Notes` section in `README.md`, then confirm the changes.
+   - _"Do the release notes look good?"_ (Yes / No)
+   - If **No**, **pause and wait for a followup chat message** from the user containing their updated text. Apply those edits to both `CHANGELOG.md` and the `## Release Notes` section in `README.md`, then display the updated notes and ask the question again with **ask_questions**.
+   - Repeat this loop until the user answers **Yes**.
 
 6. **Summarise and prompt to commit** — show a brief summary of every file changed, then present the following commands for the user to run:
 
