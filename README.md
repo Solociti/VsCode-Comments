@@ -22,12 +22,12 @@ Comments are attached to specific lines in files, displayed using VS Code's nati
 
 This extension registers the following tools with the VS Code LM API, making them available to Copilot agents and other LLM integrations:
 
-| Tool | Reference Name | Description |
-|------|----------------|-------------|
-| `inline-annotate_addComment` | `#addComment` | Add a new comment thread to a specific line in a file |
-| `inline-annotate_addReply` | `#addReply` | Reply to an existing comment thread at a given line |
-| `inline-annotate_getComments` | `#getComments` | Retrieve all comment threads for a given file |
-| `inline-annotate_deleteComment` | `#deleteComment` | Delete the comment thread at a specific line |
+| Tool                            | Reference Name   | Description                                           |
+| ------------------------------- | ---------------- | ----------------------------------------------------- |
+| `inline-annotate_addComment`    | `#addComment`    | Add a new comment thread to a specific line in a file |
+| `inline-annotate_addReply`      | `#addReply`      | Reply to an existing comment thread at a given line   |
+| `inline-annotate_getComments`   | `#getComments`   | Retrieve all comment threads for a given file         |
+| `inline-annotate_deleteComment` | `#deleteComment` | Delete the comment thread at a specific line          |
 
 All tools accept a `filePath` (absolute path) and `line` (1-based line number). `addComment` and `addReply` also accept a `body` (Markdown string) and an optional `username` to identify the comment author.
 
@@ -35,14 +35,14 @@ All tools accept a `filePath` (absolute path) and `line` (1-based line number). 
 
 ## Commands
 
-| Command | Description |
-|---------|-------------|
-| `Add Comment` | Add a comment at the current cursor line (also available via the line number context menu) |
-| `Reply` | Add a reply to an existing comment thread |
-| `Delete Comment` | Delete a single comment from a thread |
-| `Delete Comment Thread` | Delete an entire comment thread |
-| `Next Comment` | Navigate to the next comment thread |
-| `Previous Comment` | Navigate to the previous comment thread |
+| Command                 | Description                                                                                |
+| ----------------------- | ------------------------------------------------------------------------------------------ |
+| `Add Comment`           | Add a comment at the current cursor line (also available via the line number context menu) |
+| `Reply`                 | Add a reply to an existing comment thread                                                  |
+| `Delete Comment`        | Delete a single comment from a thread                                                      |
+| `Delete Comment Thread` | Delete an entire comment thread                                                            |
+| `Next Comment`          | Navigate to the next comment thread                                                        |
+| `Previous Comment`      | Navigate to the previous comment thread                                                    |
 
 ---
 
@@ -120,20 +120,25 @@ Reload VS Code when prompted. The extension will activate automatically on start
 ### 0.0.3 - 2026-02-24
 
 #### Added
+
 - Report Issue command with updated activation events.
 
 #### Changed
+
 - Renamed extension and all related identifiers to `inline-annotate`.
 
 #### Removed
+
 - Removed the quickstart document.
 
 ### 0.0.2 - 2026-02-24
 
 #### Added
+
 - Release automation agent to increment version, generate release notes, and prompt for commit.
 
 #### Fixed
+
 - Control buttons no longer appear on comment threads created by other extensions.
 
 ### 0.0.1
