@@ -1,0 +1,237 @@
+{
+  "name": "struxt-code-comments",
+  "displayName": "Code Comments",
+  "description": "Manage comments in the internal vscode comments controller",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.109.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languageModelTools": [
+      {
+        "name": "struxt-code-comments_addComment",
+        "tags": [
+          "comments",
+          "code-review"
+        ],
+        "toolReferenceName": "addComment",
+        "displayName": "Add Code Comment",
+        "modelDescription": "Add a comment to a specific line in a file using the internal comment controller.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "filePath": {
+              "type": "string",
+              "description": "The absolute path to the file."
+            },
+            "line": {
+              "type": "number",
+              "description": "The 1-based line number to add the comment to."
+            },
+            "body": {
+              "type": "string",
+              "description": "The markdown content of the comment."
+            },
+            "username": {
+              "type": "string",
+              "description": "Optional display name for the comment author (e.g. 'Agent', 'Bot', 'Copilot'). Defaults to 'User' if not provided."
+            }
+          },
+          "required": [
+            "filePath",
+            "line",
+            "body"
+          ]
+        }
+      },
+      {
+        "name": "struxt-code-comments_addReply",
+        "tags": [
+          "comments",
+          "code-review"
+        ],
+        "toolReferenceName": "addReply",
+        "displayName": "Add Reply to Code Comment",
+        "modelDescription": "Add a reply to an existing comment thread at a specific line in a file.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "filePath": {
+              "type": "string",
+              "description": "The absolute path to the file."
+            },
+            "line": {
+              "type": "number",
+              "description": "The 1-based line number of the existing comment thread to reply to."
+            },
+            "body": {
+              "type": "string",
+              "description": "The markdown content of the reply."
+            },
+            "username": {
+              "type": "string",
+              "description": "Optional display name for the reply author (e.g. 'Agent', 'Bot', 'Copilot'). Defaults to 'User' if not provided."
+            }
+          },
+          "required": [
+            "filePath",
+            "line",
+            "body"
+          ]
+        }
+      },
+      {
+        "name": "struxt-code-comments_getComments",
+        "tags": [
+          "comments",
+          "code-review"
+        ],
+        "toolReferenceName": "getComments",
+        "displayName": "Get Code Comments",
+        "modelDescription": "Get all comments in a specific file.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "filePath": {
+              "type": "string",
+              "description": "The absolute path to the file."
+            }
+          },
+          "required": [
+            "filePath"
+          ]
+        }
+      },
+      {
+        "name": "struxt-code-comments_deleteComment",
+        "tags": [
+          "comments",
+          "code-review"
+        ],
+        "toolReferenceName": "deleteComment",
+        "displayName": "Delete Code Comment",
+        "modelDescription": "Delete a comment thread at a specific line in a file.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "filePath": {
+              "type": "string",
+              "description": "The absolute path to the file."
+            },
+            "line": {
+              "type": "number",
+              "description": "The 1-based line number of the comment to delete."
+            }
+          },
+          "required": [
+            "filePath",
+            "line"
+          ]
+        }
+      }
+    ],
+    "commands": [
+      {
+        "command": "struxt-code-comments.helloWorld",
+        "title": "Hello World"
+      },
+      {
+        "command": "struxt-code-comments.addComment",
+        "title": "Add Comment"
+      },
+      {
+        "command": "struxt-code-comments.deleteCommentThread",
+        "title": "Delete Comment",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "struxt-code-comments.deleteComment",
+        "title": "Delete Comment",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "struxt-code-comments.nextCommentThread",
+        "title": "Next Comment",
+        "icon": "$(arrow-down)"
+      },
+      {
+        "command": "struxt-code-comments.previousCommentThread",
+        "title": "Previous Comment",
+        "icon": "$(arrow-up)"
+      },
+      {
+        "command": "struxt-code-comments.replyComment",
+        "title": "Reply"
+      }
+    ],
+    "menus": {
+      "editor/lineNumber/context": [
+        {
+          "command": "struxt-code-comments.addComment",
+          "group": "navigation"
+        }
+      ],
+      "comments/commentThread/title": [
+        {
+          "command": "struxt-code-comments.previousCommentThread",
+          "group": "navigation@1"
+        },
+        {
+          "command": "struxt-code-comments.nextCommentThread",
+          "group": "navigation@2"
+        },
+        {
+          "command": "struxt-code-comments.deleteCommentThread",
+          "group": "navigation@3"
+        }
+      ],
+      "comments/comment/title": [
+        {
+          "command": "struxt-code-comments.deleteComment",
+          "group": "navigation"
+        }
+      ],
+      "comments/comment/context": [
+        {
+          "command": "struxt-code-comments.deleteComment",
+          "group": "inline"
+        },
+        {
+          "command": "struxt-code-comments.deleteComment",
+          "group": "navigation"
+        }
+      ],
+      "comments/commentThread/context": [
+        {
+          "command": "struxt-code-comments.replyComment",
+          "group": "inline"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.109.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "typescript-eslint": "^8.54.0",
+    "eslint": "^9.39.2",
+    "typescript": "^5.9.3",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
